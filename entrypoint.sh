@@ -15,8 +15,6 @@ cleanup() {
         umount -f "$MOUNT_POINT" || true
     done
 
-    # cleanup trap
-    trap - $SIGNAL
     exit $?
 }
 
@@ -31,4 +29,10 @@ mount -t "$FSTYPE" -o "$MOUNT_OPTIONS" "$MOUNT_TARGET" "$MOUNT_POINT"
 # NOTE: due to -e, this makes the script fail if the mount is not present
 mount | grep " $FSTYPE " | grep "$MOUNT_POINT"
 
-tail -f /dev/null
+
+if [ $# -eq 0 ] ; then
+    tail -f /dev/null
+else
+    $@
+    cleanup "command finished"
+fi

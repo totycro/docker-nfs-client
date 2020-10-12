@@ -33,6 +33,6 @@ mount | grep " $FSTYPE " | grep "$MOUNT_POINT"
 if [ $# -eq 0 ] ; then
     tail -f /dev/null
 else
-    $@
+    "$@"
     cleanup "command finished"
 fi

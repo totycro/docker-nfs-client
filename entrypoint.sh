@@ -6,7 +6,7 @@ cleanup() {
 
     umount "$MOUNT_POINT" || true
 
-    while mount | grep " $FSTYPE " | grep -q "$MOUNT_POINT"; do
+    while mount | grep " $FSTYPE " | grep "$MOUNT_POINT"; do
         echo "Unmounting failed, possibly other processes are accessing the share."
         echo "Assuming that those will be killed and retrying repeatedly."
 
